@@ -14,12 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import webapp2
+import datetime
 
-class MainHandler(webapp2.RequestHandler):
-    def get(self):
-        self.response.write('Hello world!')
-
-app = webapp2.WSGIApplication([
-    ('/', MainHandler)
-], debug=True)
+print 'Content-Type: text/html'
+print ''
+print '<p> The time is: %s</p>' % str(datetime.datetime.now())
