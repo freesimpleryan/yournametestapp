@@ -44,6 +44,16 @@ class MainPage(webapp.RequestHandler):
 			''' % userprefs.tz_offset
 			time += datetime.timedelta(0, 0, 0, 0, 0, userprefs.tz_offset)
 		
+		name_form = '''
+			<form action ="/setname" method="post">
+					<label for="your_name">
+						What is your name?:
+					</label>
+					<input name="your_name" id="your_name" type="text" size="12"/>
+					<input type="submit" value="Set" />
+				</form>
+			'''
+		
 		self.response.headers['Content-Type'] = 'text/html'
 		self.response.out.write('''
 		<html>
@@ -54,9 +64,10 @@ class MainPage(webapp.RequestHandler):
 			%s
 				<p>The time is: %s</p>
 			%s
+			%s
 			</body>
 		</html>
-		''' % (navbar, str(time), tz_form))
+		''' % (navbar, str(time), tz_form, name_form))
 
 application = webapp.WSGIApplication([('/', MainPage)], debug = True)
 
