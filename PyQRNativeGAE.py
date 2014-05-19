@@ -5,7 +5,7 @@ Created on 03-06-2011
 '''
 from PyQRNative import QRCode as QRCodeNormal
 from pngcanvas import PNGCanvas
-from qrcode.PyQRNative import QR8bitByte, QRBitBuffer, QRUtil, \
+from PyQRNative import QR8bitByte, QRBitBuffer, QRUtil, \
     QRErrorCorrectLevel, QRRSBlock
 
 

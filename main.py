@@ -14,40 +14,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
-import datetime
-import models
 
 class MainPage(webapp.RequestHandler):
 	def get(self):
-		time = datetime.datetime.now()
-		user = users.get_current_user()
-		
-		if not user:
-			navbar = ('<p>Welcome! <a href="%s">Sign in or register</a> to customize.</p>'
-			% (users.create_login_url(self.request.path)))
-			tz_form = ' '
-		else:
-			userprefs = models.get_userprefs()
-			navbar = ('<p>Welcome, %s! You can <a href="%s">sign out</a>.</p>'
-			% (user.nickname(), users.create_logout_url(self.request.path)))
-			tz_form = '''
-				<form action ="/prefs" method="post">
-					<label for="tz_offset">
-						Timezone offset from UTC (can be negative):
-					</label>
-					<input name="tz_offset" id="tz_offset" type="text" size="4" value="%d"/>
-					<input type="submit" value="Set" />
-				</form>
-			''' % userprefs.tz_offset
-			time += datetime.timedelta(0, 0, 0, 0, 0, userprefs.tz_offset)
 		
 		name_form = '''
 			<form action ="/setname" method="post">
 					<label for="your_name">
-						What is your name?:
+						Enter your name here:
 					</label>
 					<input name="your_name" id="your_name" type="text" size="12"/>
 					<input type="submit" value="Set" />
@@ -58,16 +34,13 @@ class MainPage(webapp.RequestHandler):
 		self.response.out.write('''
 		<html>
 			<head>
-				<title> The Time Is...</title>
+				<title>What is your name?</title>
 			</head>
 			<body>
 			%s
-				<p>The time is: %s</p>
-			%s
-			%s
 			</body>
 		</html>
-		''' % (navbar, str(time), tz_form, name_form))
+		''' % (name_form))
 
 application = webapp.WSGIApplication([('/', MainPage)], debug = True)
 

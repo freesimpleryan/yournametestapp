@@ -12,10 +12,6 @@ handlers:
 - url: /yourname
   script: yourname.py
   
-- url: /prefs
-  script: prefs.py
-  login: required
-  
 - url: /setname
   script: setname.py
 
